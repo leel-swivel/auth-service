@@ -1,9 +1,11 @@
 package com.hilltop.authservice.utill;
 
+import com.hilltop.authservice.exception.InvalidTokenException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -17,7 +19,11 @@ public class JwtUtil {
     public static final String SECRET = "645267556B58703273357638792F423F4528472B4B6250655368566D59713374645267556B58703273357638792F423F4528472B4B6250655368566D59713374";
 
     public void validateToken(final String token) {
-        Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
+        try {
+            Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
+        } catch (SignatureException e) {
+            throw new InvalidTokenException("JWT signature does not match locally computed signature.");
+        }
     }
 
 
