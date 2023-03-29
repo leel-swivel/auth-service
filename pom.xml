@@ -106,10 +106,7 @@
 			<artifactId>springfox-swagger2</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-
 	</dependencies>
-
-
 	<build>
 		<plugins>
 			<plugin>
@@ -141,7 +138,5 @@
 				</executions>
 			</plugin>
 		</plugins>
-
 	</build>
-
 </project>
