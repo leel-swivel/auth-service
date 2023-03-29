@@ -24,9 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/auth")
 @Slf4j
 public class AuthController extends Controller {
-
     private final AuthService authService;
-
     private final AuthenticationManager authenticationManager;
 
     public AuthController(Translator translator, AuthService authService, AuthenticationManager authenticationManager) {
@@ -36,6 +34,12 @@ public class AuthController extends Controller {
     }
 
 
+    /**
+     * This Endpoint used to register a user.
+     *
+     * @param user user
+     * @return userRegisterResponseDto
+     */
     @PostMapping("/register")
     public ResponseEntity<ResponseWrapper> addNewUser(@RequestBody UserCredentialRequestDto user) {
         try {
@@ -50,6 +54,12 @@ public class AuthController extends Controller {
     }
 
 
+    /**
+     * This endpoint used to generate a token when valid credentials provided.
+     *
+     * @param userLoginRequestDto userLoginRequestDto
+     * @return token
+     */
     @PostMapping("/token")
     public ResponseEntity<ResponseWrapper> getToken(@RequestBody UserLoginRequestDto userLoginRequestDto) {
 
@@ -72,6 +82,12 @@ public class AuthController extends Controller {
         }
     }
 
+    /**
+     * This endpoint used to validate a token.
+     *
+     * @param token token
+     * @return
+     */
     @GetMapping("/validate")
     public ResponseEntity<ResponseWrapper> validateToken(@RequestParam("token") String token) {
         try {
