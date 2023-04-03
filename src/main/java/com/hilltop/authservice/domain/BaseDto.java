@@ -3,7 +3,6 @@ package com.hilltop.authservice.domain;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hilltop.authservice.exception.AuthServiceException;
-import org.apache.tomcat.websocket.AuthenticationException;
 
 import java.io.Serializable;
 
