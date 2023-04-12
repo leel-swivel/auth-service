@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 
@@ -20,14 +21,15 @@ class AuthConfigTest {
     void userDetailsServiceShouldReturnCustomUserDetailService() {
         AuthConfig authConfig = new AuthConfig();
         UserDetailsService userDetailsService = authConfig.userDetailsService();
-        assert userDetailsService instanceof CustomUserDetailService;
+        assertNotNull(userDetailsService);
+        assertTrue(userDetailsService instanceof CustomUserDetailService);
     }
 
     @Test
     void passwordEncoderShouldReturnBCryptPasswordEncoder() {
         AuthConfig authConfig = new AuthConfig();
         PasswordEncoder passwordEncoder = authConfig.passwordEncoder();
-        assert passwordEncoder instanceof BCryptPasswordEncoder;
+        assertTrue(passwordEncoder instanceof BCryptPasswordEncoder, "PasswordEncoder should be an instance of BCryptPasswordEncoder.");
     }
 
 
@@ -35,7 +37,8 @@ class AuthConfigTest {
     void authenticationProviderShouldReturnDaoAuthenticationProvider() {
         AuthConfig authConfig = new AuthConfig();
         AuthenticationProvider authenticationProvider = authConfig.authenticationProvider();
-        assert authenticationProvider instanceof DaoAuthenticationProvider;
+        assertNotNull(authenticationProvider);
+        assertTrue(authenticationProvider instanceof DaoAuthenticationProvider);
     }
 
 
@@ -44,7 +47,7 @@ class AuthConfigTest {
         AuthConfig authConfig = new AuthConfig();
         AuthenticationConfiguration config = mock(AuthenticationConfiguration.class);
         AuthenticationManager authenticationManager = authConfig.authenticationManager(config);
-        assert authenticationManager == config.getAuthenticationManager();
+        assertEquals(authenticationManager, config.getAuthenticationManager());
     }
 }
 
