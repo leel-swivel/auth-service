@@ -9,7 +9,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserLoginRequestDto {
+public class UserLoginRequestDto extends RequestDto {
     private String userName;
     private String password;
+
+    @Override
+    public String toLogJson() {
+        return toJson();
+    }
 }

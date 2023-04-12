@@ -1,7 +1,6 @@
 package com.hilltop.authservice.service;
 
 import com.hilltop.authservice.domain.request.UserCredentialRequestDto;
-import com.hilltop.authservice.entity.UserCredential;
 import com.hilltop.authservice.exception.AuthServiceException;
 import com.hilltop.authservice.exception.InvalidAccessException;
 import com.hilltop.authservice.repository.UserCredentialRepository;
@@ -12,7 +11,8 @@ import org.mockito.Mock;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
@@ -54,10 +54,18 @@ class AuthServiceTest {
 
     @Test
     void Should_CallJwtTokenServiceGenerateTokenMethod_When_UserNameIsGiving() {
-        String token = authService.generateToken("leel");
+        authService.generateToken("leel");
         verify(jwtUtil, times(1)).generateToken("leel");
     }
 
+    @Test
+    void Should_ThrowInvalidAccessException_When_GenerateAToken() {
+        when(jwtUtil.generateToken("leel")).thenThrow(new DataAccessException("ERROR") {
+        });
+        InvalidAccessException invalidAccessException = assertThrows(InvalidAccessException.class,
+                () -> authService.generateToken("leel"));
+        assertEquals("Invalid access.", invalidAccessException.getMessage());
+    }
 
     @Test
     void Should_CallJwtTokenServiceValidateTokenMethod_When_TokenIsGiving() {

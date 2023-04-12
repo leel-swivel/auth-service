@@ -7,9 +7,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserCredentialRequestDto {
+public class UserCredentialRequestDto extends RequestDto {
 
     private String name;
     private String email;
     private String password;
+
+
+    @Override
+    public String toLogJson() {
+        return toJson();
+    }
 }
