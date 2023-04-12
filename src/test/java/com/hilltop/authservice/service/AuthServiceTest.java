@@ -40,7 +40,7 @@ class AuthServiceTest {
         authService.saveUser(userCredential);
         verify(userCredentialRepository, times(1)).save(any());
     }
-/*
+
     @Test
     void Should_ThrowAuthServiceException_When_FailedToAddUserData() {
         var userCredential = getSampleUserCredential();
@@ -72,7 +72,7 @@ class AuthServiceTest {
         String token = authService.generateToken("leel");
         authService.validateToken(token);
         verify(jwtUtil, times(1)).validateToken(token);
-    }*/
+    }
 
     private UserCredentialRequestDto getSampleUserCredential() {
         return new UserCredentialRequestDto("leel", "le@gmail.com", "pass");
