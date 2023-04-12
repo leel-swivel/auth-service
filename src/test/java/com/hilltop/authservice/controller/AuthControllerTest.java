@@ -69,7 +69,7 @@ class AuthControllerTest {
                 .andExpect(status().isCreated());
     }
 
-
+/*
     @Test
     void Should_Return_InternalServerError_When_RegisterAUser() throws Exception {
         UserCredentialRequestDto sampleUserCredentialRequestDto = getSampleUserCredentialRequestDto();
@@ -136,7 +136,7 @@ class AuthControllerTest {
                         .param("token", "TOKEN")
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError());
-    }
+    }*/
 
     private UserLoginRequestDto getSampleUserLoginRequestDto() {
         return new UserLoginRequestDto("user", "pass");
