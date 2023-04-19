@@ -2,22 +2,17 @@ package com.hilltop.authservice.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Component;
-
-import java.util.Locale;
 
 @Component
 public class Translator {
 
     private final ResourceBundleMessageSource messageSource;
-    private final MessageSourceAccessor messageSourceAccessor;
 
     @Autowired
     public Translator(ResourceBundleMessageSource messageSource) {
         this.messageSource = messageSource;
-        this.messageSourceAccessor = new MessageSourceAccessor(messageSource, Locale.ENGLISH);
     }
 
     /**
@@ -29,16 +24,6 @@ public class Translator {
     public String toLocale(String msgCode) {
         var locale = LocaleContextHolder.getLocale();
         return messageSource.getMessage(msgCode, null, locale);
-    }
-
-    /**
-     * Return default locale messages
-     *
-     * @param msgCode msgCode
-     * @return message
-     */
-    public String toDefaultLocale(String msgCode) {
-        return messageSourceAccessor.getMessage(msgCode);
     }
 
     /**

@@ -6,6 +6,5 @@ import java.util.Optional;
 
 public interface UserCredentialRepository extends JpaRepository<UserCredential, String> {
 
-
     Optional<UserCredential> findByName(String userName);
 }
